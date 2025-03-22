@@ -22,22 +22,22 @@ jobs:
     strategy:
       matrix:
         # https://docs.github.com/en/actions/using-jobs/using-a-matrix-for-your-jobs
-        python-version: [3.9]
-        os: [ubuntu-20.04]
+        python-version: [3.13]
+        os: [ubuntu-24.04]
 
     # Steps represent a sequence of tasks that will be executed as part of the job
     steps:
-    - uses: actions/checkout@v3
+    - uses: actions/checkout@v4
     - name: Set up Python ${{ matrix.python-version }}
-      uses: actions/setup-python@v4
+      uses: actions/setup-python@v5
       with:
         python-version: ${{ matrix.python-version }}
     - name: Install dependencies
       run: |
         python -m pip install --upgrade pip
-        pip install pyqt5==5.15.7 lxml pytest pytest-faulthandler
+        pip install pyqt5==5.15.11 lxml pytest pytest-faulthandler
         sudo apt-get -qq update
-        sudo apt-get -qq install python3-pip python3-dev build-essential qt5-default libxml2-dev libxslt1-dev mesa-utils libgl1-mesa-glx libgl1-mesa-dev libxcb-xinerama0-dev
+        sudo apt-get -qq install python3-pip python3-dev build-essential qtbase5-dev qt5-qmake libxml2-dev libxslt1-dev mesa-utils libgl1-mesa-dev libxcb-xinerama0-dev
         if [ -f requirements.txt ]; then pip install -r requirements.txt; fi
     - name: Test with pytest
       run: |

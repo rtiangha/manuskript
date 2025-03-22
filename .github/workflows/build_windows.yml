@@ -25,20 +25,20 @@ jobs:
     runs-on: ${{ matrix.os }}
     strategy:
       matrix:
-        python-version: [3.9]
-        os: [windows-latest]
+        python-version: [3.13]
+        os: [windows-2022]
     steps:
     # We use the version from this commit and not just the current branch.  This is for R&D builds too.
-    - uses: actions/checkout@v3
+    - uses: actions/checkout@v4
     - name: Set up Python ${{ matrix.python-version }}
-      uses: actions/setup-python@v4
+      uses: actions/setup-python@v5
       with:
         python-version: ${{ matrix.python-version }}
     # These should be moved to a pyproject.toml file down the line.
     - name: Install Python build dependencies
       run: |
         python -m pip install --upgrade pip 
-        pip install pyqt5==5.15.7 lxml pytest pytest-faulthandler markdown language_tool_python symspellpy pyspellchecker pyenchant
+        pip install pyqt5==5.15.11 lxml pytest pytest-faulthandler markdown language_tool_python symspellpy pyspellchecker pyenchant
         pip install pyinstaller
     - name: pyinstaller build
       run: |
@@ -53,7 +53,7 @@ jobs:
 
     # https://docs.github.com/en/actions/using-workflows/storing-workflow-data-as-artifacts
     - name: Upload Artifacts
-      uses: actions/upload-artifact@v3
+      uses: actions/upload-artifact@v4
       with:
         name: manuskript_windows
         path: ./dist/manuskript/
