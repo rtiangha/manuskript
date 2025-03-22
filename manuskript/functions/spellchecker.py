@@ -21,9 +21,6 @@ try:
     import symspellpy
     import distutils.version
 
-    if distutils.version.LooseVersion(symspellpy.__version__) < SYMSPELLPY_MIN_VERSION:
-        symspellpy = None
-
 except ImportError:
     symspellpy = None
 
